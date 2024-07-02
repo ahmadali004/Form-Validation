@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SignIn</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha384-vtXRMe3mGCbOeY7l30aIg8H9p3GdeSe4IFlP6G8JMa7o7lXvnz3GFKzPxzJdPfGK"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <div class="whole">
+    <div class="d-flex justify-content-center align-items-center vh-100">
+      <div class="card p-4 shadow-lg" style="width: 30rem">
+        <h3 class="card-title text text-center mb-4">Sign in</h3>
+        <form id="signInForm">
+          <div class="row mb-auto text-white bg-white">
+            <div class="col text-center">
+              <div class="inputbox mb-auto text-center">
+                <label for="Email" class="form-label text-black p-1">Email</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="Email"
+                  placeholder="Enter Email"
+                  required
+                />
+              </div>
+              <div class="inputbox mb-auto text-center">
+                <label for="PassWord" class="form-label text-black p-1">Password</label>
+                <input
+                  type="password"
+                  class="form-control "
+                  id="PassWord"
+                  placeholder="Enter Password"
+                  required
+                />
+                <div class="d-grid">
+                <button type="submit" class="btn btn-primary m-4">Sign in</button>
+              </div>
+            </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+</div>
+  </body>
+</html>
