@@ -274,3 +274,87 @@ function updateParent(index) {
   $("#parentForm")[0].reset();
   $("#parentForm").removeData("editIndex");
 }
+
+
+//save tecaher
+
+$(document).ready(function () {
+  loadTeachers();
+
+  $("#teacherForm").on("submit", function (event) {
+    event.preventDefault();
+    const editIndex = $("#teacherForm").data("editIndex");
+    if (editIndex !== undefined) {
+      updateTeacher(editIndex);
+    } else {
+      saveTeacher();
+    }
+    loadTeachers();
+  });
+});
+
+function saveTeacher() {
+  let teachers = JSON.parse(localStorage.getItem("teachers")) || [];
+
+  const teacher = {
+    firstName: $("#FirstName").val(),
+    lastName: $("#LastName").val(),
+    department: $("#Department").val(),
+    jobTitle: $("#JobTitle").val(),
+    email: $("#Email").val(),
+    dob: $("#DOB").val(),
+  };
+
+  teachers.push(teacher);
+  localStorage.setItem("teachers", JSON.stringify(teachers));
+  alert("Teacher saved successfully!");
+  $("#teacherForm")[0].reset();
+}
+
+function loadTeachers() {
+  let teachers = JSON.parse(localStorage.getItem("teachers")) || [];
+  let teacherTableBody = $("#TeacherTableBody");
+  teacherTableBody.empty();
+  teachers.forEach((teacher, index) => {
+    let row = `<tr>
+      <td>${teacher.firstName}</td>
+      <td>${teacher.lastName}</td>
+      <td>${teacher.department}</td>
+      <td>${teacher.jobTitle}</td>
+      <td>${teacher.email}</td>
+      <td>${teacher.dob}</td>
+      <td><button class="btn btn-primary btn-sm" onclick="editTeacher(${index})">Edit</button></td>
+    </tr>`;
+
+    teacherTableBody.append(row);
+  });
+}
+
+function editTeacher(index) {
+  let teachers = JSON.parse(localStorage.getItem("teachers")) || [];
+  const teacher = teachers[index];
+
+  $("#FirstName").val(teacher.firstName);
+  $("#LastName").val(teacher.lastName);
+  $("#Department").val(teacher.department);
+  $("#JobTitle").val(teacher.jobTitle);
+  $("#Email").val(teacher.email);
+  $("#DOB").val(teacher.dob);
+  $("#teacherForm").data("editIndex", index);
+}
+
+function updateTeacher(index) {
+  let teachers = JSON.parse(localStorage.getItem("teachers")) || [];
+
+  teachers[index].firstName = $("#FirstName").val();
+  teachers[index].lastName = $("#LastName").val();
+  teachers[index].department = $("#Department").val();
+  teachers[index].jobTitle = $("#JobTitle").val();
+  teachers[index].email = $("#Email").val();
+  teachers[index].dob = $("#DOB").val();
+
+  localStorage.setItem("teachers", JSON.stringify(teachers));
+  alert("Teacher updated successfully!");
+  $("#teacherForm")[0].reset();
+  $("#teacherForm").removeData("editIndex");
+}

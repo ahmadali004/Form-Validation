@@ -8,8 +8,8 @@
 }
 
   
-.whole {
-    /* background: linear-gradient(rgb(0, 251, 255), rgb(2, 68, 249)); */
+/* .whole {
+    background: linear-gradient(rgb(0, 251, 255), rgb(2, 68, 249));
     position: relative;
     height: 100vh;
     display: flex;
@@ -18,7 +18,7 @@
     overflow: hidden;
     margin-left: auto;
     margin-right: auto;
-}
+} */
 
 .card {
     border: 6px solid transparent;
