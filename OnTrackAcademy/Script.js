@@ -100,45 +100,45 @@
 //     return isValid;
 // }
 $(document).ready(function () {
+  loadStudents();
+  console.log("logged");
+  $("#studentForm").on("submit", function (event) {
+    event.preventDefault();
     loadStudents();
-    console.log("logged")
-    $("#studentForm").on("submit", function (event) {
-      event.preventDefault();
-      loadStudents();
-      const editIndex = $("#studentForm").data("editIndex");
-      if (editIndex !== undefined) {
-        updateStudent(editIndex);
-      } else {
-        saveStudent();
-      }
-      loadStudents();
-    });
+    const editIndex = $("#studentForm").data("editIndex");
+    if (editIndex !== undefined) {
+      updateStudent(editIndex);
+    } else {
+      saveStudent();
+    }
+    loadStudents();
   });
-  
-  function saveStudent() {
-    let students = JSON.parse(localStorage.getItem("students")) || [];
-  
-    const student = {
-      firstName: $("#FirstName").val(),
-      lastName: $("#LastName").val(),
-      gender: $('input[name="gender"]:checked').val(),
-      parentName: $("#Parent").val(),
-      className: $("#Class").val(),
-    };
-    console.log("logged")
-  
-    students.push(student);
-    localStorage.setItem("students", JSON.stringify(students));
-    alert("Student saved successfully!");
-    $("#studentForm")[0].reset();
-  }
-  
-  function loadStudents() {
-    let students = JSON.parse(localStorage.getItem("students")) || [];
-    let studentTableBody = $("#UserTableBody");
-    studentTableBody.empty();
-    students.forEach((student, index) => {
-      let row = `<tr>
+});
+
+function saveStudent() {
+  let students = JSON.parse(localStorage.getItem("students")) || [];
+
+  const student = {
+    firstName: $("#FirstName").val(),
+    lastName: $("#LastName").val(),
+    gender: $('input[name="gender"]:checked').val(),
+    parentName: $("#Parent").val(),
+    className: $("#Class").val(),
+  };
+  console.log("logged");
+
+  students.push(student);
+  localStorage.setItem("students", JSON.stringify(students));
+  alert("Student saved successfully!");
+  $("#studentForm")[0].reset();
+}
+
+function loadStudents() {
+  let students = JSON.parse(localStorage.getItem("students")) || [];
+  let studentTableBody = $("#UserTableBody");
+  studentTableBody.empty();
+  students.forEach((student, index) => {
+    let row = `<tr>
       <td>${student.firstName}</td>
       <td>${student.lastName}</td>
       <td>${student.gender}</td>
@@ -146,38 +146,37 @@ $(document).ready(function () {
       <td>${student.className}</td>
       <td><button class="btn btn-primary btn-sm" onclick="editStudent(${index})">Edit</button></td>
       </tr>`;
-  
-      studentTableBody.append(row);
-    });
-  }
-  
-  function editStudent(index) {
-    let students = JSON.parse(localStorage.getItem("students")) || [];
-    const student = students[index];
-  
-    $("#FirstName").val(student.firstName);
-    $("#LastName").val(student.lastName);
-    $(`input[name="gender"][value="${student.gender}"]`).prop("checked", true);
-    $("#Parent").val(student.parentName);
-    $("#Class").val(student.className);
-    $("#studentForm").data("editIndex", index);
-  }
-  
-  function updateStudent(index) {
-    let students = JSON.parse(localStorage.getItem("students")) || [];
-  
-    students[index].firstName = $("#FirstName").val();
-    students[index].lastName = $("#LastName").val();
-    students[index].gender = $('input[name="gender"]:checked').val();
-    students[index].parentName = $("#Parent").val();
-    students[index].className = $("#Class").val();
-  
-    localStorage.setItem("students", JSON.stringify(students));
-    alert("Student updated successfully!");
-    $("#studentForm")[0].reset();
-    $("#studentForm").removeData("editIndex");
-  }
-  
+
+    studentTableBody.append(row);
+  });
+}
+
+function editStudent(index) {
+  let students = JSON.parse(localStorage.getItem("students")) || [];
+  const student = students[index];
+
+  $("#FirstName").val(student.firstName);
+  $("#LastName").val(student.lastName);
+  $(`input[name="gender"][value="${student.gender}"]`).prop("checked", true);
+  $("#Parent").val(student.parentName);
+  $("#Class").val(student.className);
+  $("#studentForm").data("editIndex", index);
+}
+
+function updateStudent(index) {
+  let students = JSON.parse(localStorage.getItem("students")) || [];
+
+  students[index].firstName = $("#FirstName").val();
+  students[index].lastName = $("#LastName").val();
+  students[index].gender = $('input[name="gender"]:checked').val();
+  students[index].parentName = $("#Parent").val();
+  students[index].className = $("#Class").val();
+
+  localStorage.setItem("students", JSON.stringify(students));
+  alert("Student updated successfully!");
+  $("#studentForm")[0].reset();
+  $("#studentForm").removeData("editIndex");
+}
 
 function goto(page) {
   fetch(page)
@@ -185,11 +184,93 @@ function goto(page) {
     .then((html) => {
       document.getElementById("main-content").innerHTML = html;
 
-      document.querySelectorAll('.nav-link').forEach(link => {
-        link.classList.remove('active');
+      document.querySelectorAll(".nav-link").forEach((link) => {
+        link.classList.remove("active");
       });
 
-  
-      element.classList.add('active');
+      element.classList.add("active");
     });
+}
+
+//Parent save
+
+$(document).ready(function () {
+  loadParents();
+
+  $("#parentForm").on("submit", function (event) {
+    event.preventDefault();
+    const editIndex = $("#parentForm").data("editIndex");
+    if (editIndex !== undefined) {
+      updateParent(editIndex);
+    } else {
+      saveParent();
+    }
+    loadParents();
+  });
+});
+
+function saveParent() {
+  let parents = JSON.parse(localStorage.getItem("parents")) || [];
+
+  const parent = {
+    firstName: $("#FirstName").val(),
+    lastName: $("#LastName").val(),
+    workplace: $("#Workplace").val(),
+    jobTitle: $("#JobTitle").val(),
+    address: $("#Address").val(),
+    dob: $("#DOB").val(),
+  };
+
+  parents.push(parent);
+  localStorage.setItem("parents", JSON.stringify(parents));
+  alert("Parent saved successfully!");
+  $("#parentForm")[0].reset();
+}
+
+function loadParents() {
+  let parents = JSON.parse(localStorage.getItem("parents")) || [];
+  let parentTableBody = $("#ParentTableBody");
+  parentTableBody.empty();
+  parents.forEach((parent, index) => {
+    let row = `<tr>
+      <td>${parent.firstName}</td>
+      <td>${parent.lastName}</td>
+      <td>${parent.workplace}</td>
+      <td>${parent.jobTitle}</td>
+      <td>${parent.address}</td>
+      <td>${parent.dob}</td>
+      <td><button class="btn btn-primary btn-sm" onclick="editParent(${index})">Edit</button></td>
+    </tr>`;
+
+    parentTableBody.append(row);
+  });
+}
+
+function editParent(index) {
+  let parents = JSON.parse(localStorage.getItem("parents")) || [];
+  const parent = parents[index];
+
+  $("#FirstName").val(parent.firstName);
+  $("#LastName").val(parent.lastName);
+  $("#Workplace").val(parent.workplace);
+  $("#JobTitle").val(parent.jobTitle);
+  $("#Address").val(parent.address);
+  $("#DOB").val(parent.dob);
+  $("#parentForm").data("editIndex", index);
+}
+
+function updateParent(index) {
+  let parents = JSON.parse(localStorage.getItem("parents")) || [];
+
+  parents[index].firstName = $("#FirstName").val();
+  parents[index].lastName = $("#LastName").val();
+  parents[index].workplace = $("#Workplace").val();
+  parents[index].jobTitle = $("#JobTitle").val();
+  parents[index].address = $("#Address").val();
+  parents[index].dob = $("#DOB").val();
+
+  localStorage.setItem("parents", JSON.stringify(parents));
+  alert("Parent updated successfully!");
+  $("#parentForm")[0].reset();
+  $("#parentForm").removeData("editIndex");
 }
